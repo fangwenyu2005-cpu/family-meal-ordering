@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "spec-selector": "/components/spec-selector/spec-selector"
+  },
+  "navigationBarTitleText": "菜单"
+}

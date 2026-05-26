@@ -1,0 +1,82 @@
+<!-- pages/menu/menu.wxml - Menu Browse Page -->
+<view class="page">
+  <!-- Category tabs -->
+  <scroll-view class="category-bar" scroll-x="true" enhanced show-scrollbar="{{false}}">
+    <view class="category-tab {{currentCategoryId === cat.id ? 'active' : ''}}"
+          wx:for="{{categories}}" wx:key="id"
+          data-id="{{cat.id}}"
+          bindtap="onSwitchCategory">
+      {{cat.name}}
+    </view>
+  </scroll-view>
+
+  <!-- Product list -->
+  <scroll-view class="product-list" scroll-y="true" enhanced>
+    <!-- Loading -->
+    <view class="loading-wrap" wx:if="{{loading}}">
+      <view class="loading-dot"></view>
+      <view class="loading-dot"></view>
+      <view class="loading-dot"></view>
+    </view>
+
+    <!-- Error -->
+    <view class="error-state" wx:elif="{{error}}">
+      <text class="error-icon">!</text>
+      <text>{{error}}</text>
+      <button class="btn-retry" bindtap="fetchProducts">重新加载</button>
+    </view>
+
+    <!-- Product cards -->
+    <view class="product-card card" wx:for="{{products}}" wx:key="id">
+      <view class="product-image-wrap">
+        <image class="product-image" wx:if="{{item.imageUrl}}"
+               src="{{item.imageUrl}}" mode="aspectFill" lazy-load="true"></image>
+        <view class="product-image-placeholder" wx:else>☕</view>
+      </view>
+      <view class="product-info">
+        <view class="product-name">{{item.name}}</view>
+        <view class="product-desc" wx:if="{{item.description}}">{{item.description}}</view>
+        <view class="product-footer">
+          <text class="price">{{item.basePrice}}</text>
+          <view class="btn-add"
+                data-product="{{item}}"
+                catchtap="onTapAdd">
+            +
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Empty state -->
+    <view class="empty-state" wx:if="{{!loading && !error && products.length === 0}}">
+      <view class="empty-icon">☕</view>
+      <text>暂无产品</text>
+    </view>
+
+    <!-- Bottom spacer for cart bar -->
+    <view style="height: 140rpx;"></view>
+  </scroll-view>
+
+  <!-- Bottom cart bar -->
+  <view class="cart-bar" wx:if="{{cartCount > 0}}" bindtap="onGoCart">
+    <view class="cart-icon-wrap">
+      <text class="cart-icon">🛒</text>
+      <view class="badge">{{cartCount}}</view>
+    </view>
+    <view class="cart-total">
+      <text class="price">{{cartTotal}}</text>
+    </view>
+    <view class="cart-btn">
+      <text>去结算</text>
+      <text class="cart-arrow">></text>
+    </view>
+  </view>
+
+  <!-- Spec selector modal -->
+  <spec-selector
+    product="{{selectedProduct}}"
+    show="{{showSpecSelector}}"
+    bind:close="onSpecClose"
+    bind:add="onSpecAdd">
+  </spec-selector>
+</view>

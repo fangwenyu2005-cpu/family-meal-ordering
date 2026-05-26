@@ -1,0 +1,67 @@
+<!-- pages/cart/cart.wxml - Cart Page -->
+<view class="page">
+  <!-- Header -->
+  <view class="cart-header" wx:if="{{cartItems.length > 0}}">
+    <view class="header-left">
+      <text class="header-title">我的购物车</text>
+      <text class="header-count">({{totalCount}}件)</text>
+    </view>
+    <view class="header-right" bindtap="onClearCart">
+      <text class="clear-btn">清空</text>
+    </view>
+  </view>
+
+  <!-- Cart items list -->
+  <scroll-view class="cart-list" scroll-y="true" wx:if="{{cartItems.length > 0}}">
+    <view class="cart-item card" wx:for="{{cartItems}}" wx:key="cartKey">
+      <view class="item-main">
+        <view class="item-img-wrap">
+          <image class="item-img" wx:if="{{item.productImage}}"
+                 src="{{item.productImage}}" mode="aspectFill"></image>
+          <view class="item-img-placeholder" wx:else>☕</view>
+        </view>
+        <view class="item-info">
+          <view class="item-name">{{item.productName}}</view>
+          <view class="item-spec" wx:if="{{item.specSummary}}">{{item.specSummary}}</view>
+          <view class="item-price-row">
+            <text class="price">{{item.unitPrice}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="item-actions">
+        <view class="stepper">
+          <view class="step-btn {{item.quantity <= 1 ? 'disabled' : ''}}"
+                data-cart-key="{{item.cartKey}}"
+                data-action="minus"
+                bindtap="onChangeQty">-</view>
+          <view class="step-value">{{item.quantity}}</view>
+          <view class="step-btn"
+                data-cart-key="{{item.cartKey}}"
+                data-action="plus"
+                bindtap="onChangeQty">+</view>
+        </view>
+        <text class="item-subtotal price">{{item.subtotal}}</text>
+      </view>
+    </view>
+
+    <!-- Bottom spacer -->
+    <view style="height: 160rpx;"></view>
+  </scroll-view>
+
+  <!-- Empty state -->
+  <view class="empty-state" wx:else>
+    <view class="empty-icon">🛒</view>
+    <view class="empty-title">购物车是空的</view>
+    <view class="empty-hint">快去菜单挑选心仪的饮品吧</view>
+    <button class="btn-outline" bindtap="onGoMenu">去点单</button>
+  </view>
+
+  <!-- Bottom checkout bar -->
+  <view class="checkout-bar" wx:if="{{cartItems.length > 0}}">
+    <view class="checkout-info">
+      <text class="checkout-label">合计</text>
+      <text class="price checkout-total">{{totalPrice}}</text>
+    </view>
+    <button class="btn-checkout" bindtap="onGoCheckout">去结算</button>
+  </view>
+</view>

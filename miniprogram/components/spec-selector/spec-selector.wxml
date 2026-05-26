@@ -1,0 +1,63 @@
+<!-- components/spec-selector/spec-selector.wxml - Spec Selector Bottom Sheet -->
+<view class="overlay {{show ? 'visible' : ''}}" catchtap="onOverlayTap">
+  <view class="sheet {{show ? 'visible' : ''}}" catchtap="">
+    <!-- Close handle -->
+    <view class="sheet-handle">
+      <view class="handle-bar"></view>
+    </view>
+
+    <!-- Product header -->
+    <view class="product-header" wx:if="{{product}}">
+      <view class="product-img-wrap">
+        <image class="product-img" wx:if="{{product.imageUrl}}"
+               src="{{product.imageUrl}}" mode="aspectFill"></image>
+        <view class="product-img-placeholder" wx:else>☕</view>
+      </view>
+      <view class="product-meta">
+        <view class="product-name">{{product.name}}</view>
+        <view class="product-price">
+          <text class="price">{{calcPrice}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Spec groups -->
+    <scroll-view class="spec-groups" scroll-y="true">
+      <view class="spec-group" wx:for="{{specGroups}}" wx:key="specGroupId">
+        <view class="spec-group-label">
+          <text>{{item.name}}</text>
+          <text class="required-mark" wx:if="{{item.isRequired}}">*必选</text>
+        </view>
+        <view class="option-list">
+          <view
+            class="option-tag {{selectedOptions.indexOf(opt.id) >= 0 ? 'selected' : ''}}"
+            wx:for="{{item.options}}" wx:for-item="opt" wx:key="id"
+            data-group-id="{{item.specGroupId}}"
+            data-option-id="{{opt.id}}"
+            data-price-delta="{{opt.priceDelta}}"
+            bindtap="onSelectOption">
+            <text>{{opt.label}}</text>
+            <text class="option-delta" wx:if="{{opt.priceDelta > 0}}">+{{opt.priceDelta}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- Quantity stepper -->
+      <view class="quantity-row">
+        <text class="qty-label">数量</text>
+        <view class="stepper">
+          <view class="step-btn {{quantity <= 1 ? 'disabled' : ''}}" bindtap="onQtyMinus">-</view>
+          <view class="step-value">{{quantity}}</view>
+          <view class="step-btn" bindtap="onQtyPlus">+</view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- Add to cart button -->
+    <view class="sheet-footer">
+      <button class="btn-add-cart" bindtap="onAddToCart" disabled="{{!canSubmit}}">
+        加入购物车 <text class="add-cart-price price">{{totalPrice}}</text>
+      </button>
+    </view>
+  </view>
+</view>

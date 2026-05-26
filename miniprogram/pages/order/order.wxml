@@ -1,0 +1,116 @@
+<!-- pages/order/order.wxml - Order Status Page -->
+<view class="page">
+  <scroll-view class="content" scroll-y="true" wx:if="{{order}}">
+    <!-- Status header -->
+    <view class="status-header">
+      <view class="status-icon-large">
+        <text wx:if="{{order.status === 'SUBMITTED'}}">📋</text>
+        <text wx:elif="{{order.status === 'CONFIRMED'}}">✅</text>
+        <text wx:elif="{{order.status === 'PREPARING'}}">☕</text>
+        <text wx:elif="{{order.status === 'COMPLETED'}}">🎉</text>
+        <text wx:elif="{{order.status === 'CANCELLED'}}">❌</text>
+        <text wx:else>📋</text>
+      </view>
+      <view class="status-text">{{statusText}}</view>
+      <view class="status-hint">{{statusHint}}</view>
+    </view>
+
+    <!-- Order info card -->
+    <view class="info-card card">
+      <view class="info-row">
+        <text class="info-label">订单编号</text>
+        <text class="info-value">{{order.id}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">桌号</text>
+        <text class="info-value">{{order.table && order.table.tableNumber || tableNumber}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">用餐方式</text>
+        <text class="info-value">{{order.dineType === 'EAT_IN' ? '堂食' : '打包'}}</text>
+      </view>
+      <view class="info-row" wx:if="{{order.createdAt}}">
+        <text class="info-label">下单时间</text>
+        <text class="info-value">{{order._createdAt}}</text>
+      </view>
+    </view>
+
+    <!-- Status timeline -->
+    <view class="section">
+      <view class="section-title">订单进度</view>
+      <view class="timeline">
+        <view class="timeline-node {{timelineState.submitted}}">
+          <view class="tn-dot"></view>
+          <view class="tn-label">已提交</view>
+          <view class="tn-time" wx:if="{{timelineState.submitted === 'done' && order._submittedAt}}">{{order._submittedAt}}</view>
+        </view>
+        <view class="timeline-node {{timelineState.confirmed}}">
+          <view class="tn-dot"></view>
+          <view class="tn-label">已确认</view>
+          <view class="tn-time" wx:if="{{timelineState.confirmed === 'done' && order._confirmedAt}}">{{order._confirmedAt}}</view>
+        </view>
+        <view class="timeline-node {{timelineState.preparing}}">
+          <view class="tn-dot"></view>
+          <view class="tn-label">制作中</view>
+          <view class="tn-time" wx:if="{{timelineState.preparing === 'done' && order._preparingAt}}">{{order._preparingAt}}</view>
+        </view>
+        <view class="timeline-node {{timelineState.completed}}">
+          <view class="tn-dot"></view>
+          <view class="tn-label">已完成</view>
+          <view class="tn-time" wx:if="{{timelineState.completed === 'done' && order._completedAt}}">{{order._completedAt}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Order items -->
+    <view class="section">
+      <view class="section-title">订单内容</view>
+      <view class="order-items">
+        <view class="order-item" wx:for="{{order.items}}" wx:key="id">
+          <view class="oi-main">
+            <view class="oi-name">{{item.productName || item.product && item.product.name || '商品'}}</view>
+            <view class="oi-specs" wx:if="{{item.specs && item.specs.length > 0}}">
+              <text wx:for="{{item.specs}}" wx:key="id" wx:for-item="spec">{{spec.label}}</text>
+            </view>
+          </view>
+          <view class="oi-meta">
+            <text class="oi-qty">x{{item.quantity}}</text>
+            <text class="price">{{item._price}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="order-total-row">
+        <text class="total-label">合计</text>
+        <text class="price total-price">{{order._totalPrice}}</text>
+      </view>
+    </view>
+
+    <!-- Cancel button (only when SUBMITTED) -->
+    <view class="cancel-section" wx:if="{{order.status === 'SUBMITTED'}}">
+      <button class="btn-cancel" bindtap="onCancelOrder" loading="{{cancelling}}" disabled="{{cancelling}}">
+        {{cancelling ? '取消中...' : '取消订单'}}
+      </button>
+    </view>
+
+    <!-- Add more button -->
+    <view class="more-section">
+      <button class="btn-outline" bindtap="onGoMenu">再加点</button>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </scroll-view>
+
+  <!-- Loading state -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+  </view>
+
+  <!-- Error state -->
+  <view class="empty-state" wx:if="{{error}}">
+    <view class="empty-icon">!</view>
+    <text>{{error}}</text>
+    <button class="btn-outline" style="margin-top: 32rpx;" bindtap="fetchOrder">重新加载</button>
+  </view>
+</view>

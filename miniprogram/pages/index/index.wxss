@@ -1,0 +1,149 @@
+/* pages/index/index.wxss */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 80rpx 48rpx;
+  background-color: #0d0d0d;
+}
+
+/* Branding */
+.brand-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 72rpx;
+}
+
+.logo-wrap {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0a96d, #b8753b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24rpx;
+  box-shadow: 0 8rpx 32rpx rgba(224, 169, 109, 0.3);
+}
+
+.logo-placeholder {
+  font-size: 56rpx;
+}
+
+.logo {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.shop-name {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #e0a96d;
+  margin-bottom: 8rpx;
+  letter-spacing: 4rpx;
+}
+
+.shop-tagline {
+  font-size: 24rpx;
+  color: #888;
+  letter-spacing: 2rpx;
+}
+
+/* Table card */
+.table-card {
+  width: 100%;
+  text-align: center;
+  padding: 48rpx 32rpx;
+  margin-bottom: 48rpx;
+}
+
+.table-label {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+  letter-spacing: 4rpx;
+}
+
+.table-number {
+  font-size: 88rpx;
+  font-weight: 800;
+  color: #e0a96d;
+  line-height: 1.2;
+}
+
+.table-hint {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 16rpx;
+}
+
+/* Manual input */
+.input-group {
+  width: 100%;
+  margin-bottom: 48rpx;
+}
+
+.input-label {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 16rpx;
+  text-align: center;
+}
+
+.table-input {
+  background-color: #1a1a1a;
+  border: 2rpx solid #333;
+  border-radius: 16rpx;
+  padding: 24rpx 32rpx;
+  color: #eee;
+  font-size: 40rpx;
+  text-align: center;
+  width: 100%;
+}
+
+.input-placeholder {
+  color: #555;
+  font-size: 32rpx;
+}
+
+/* Start button */
+.btn-start {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(135deg, #e0a96d, #c8894f);
+  color: #1a1a1a;
+  font-size: 34rpx;
+  font-weight: 700;
+  border-radius: 48rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2rpx;
+  box-shadow: 0 8rpx 24rpx rgba(224, 169, 109, 0.25);
+  margin-bottom: 32rpx;
+}
+
+.btn-start:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+.btn-start[disabled] {
+  background: #333;
+  color: #666;
+  box-shadow: none;
+}
+
+/* Error message */
+.error-msg {
+  color: #e05252;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 16rpx;
+  width: 100%;
+}

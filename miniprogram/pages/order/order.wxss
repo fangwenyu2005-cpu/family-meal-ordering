@@ -1,0 +1,261 @@
+/* pages/order/order.wxss */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #0d0d0d;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ===== Status header ===== */
+.status-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx 32rpx 40rpx;
+  background: linear-gradient(180deg, #1a1a2e 0%, #0d0d0d 100%);
+}
+
+.status-icon-large {
+  font-size: 72rpx;
+  margin-bottom: 16rpx;
+}
+
+.status-text {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #e0a96d;
+  margin-bottom: 8rpx;
+}
+
+.status-hint {
+  font-size: 24rpx;
+  color: #888;
+  text-align: center;
+}
+
+/* ===== Info card ===== */
+.info-card {
+  margin: 0 24rpx;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14rpx 0;
+}
+
+.info-row:not(:last-child) {
+  border-bottom: 1rpx solid #252525;
+}
+
+.info-label {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.info-value {
+  font-size: 26rpx;
+  color: #eee;
+}
+
+/* ===== Section ===== */
+.section {
+  padding: 28rpx 32rpx;
+}
+
+.section-title {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+  letter-spacing: 2rpx;
+}
+
+/* ===== Timeline ===== */
+.timeline {
+  position: relative;
+  padding-left: 32rpx;
+  margin-left: 16rpx;
+  border-left: 2rpx solid #2a2a2a;
+}
+
+.timeline-node {
+  position: relative;
+  padding: 0 0 36rpx 28rpx;
+}
+
+.timeline-node:last-child {
+  padding-bottom: 0;
+}
+
+.tn-dot {
+  position: absolute;
+  left: -39rpx;
+  top: 4rpx;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background-color: #2a2a2a;
+  border: 2rpx solid #2a2a2a;
+}
+
+.timeline-node.done .tn-dot {
+  background-color: #e0a96d;
+  border-color: #e0a96d;
+}
+
+.timeline-node.current .tn-dot {
+  background-color: #e0a96d;
+  border-color: #e0a96d;
+  box-shadow: 0 0 0 6rpx rgba(224, 169, 109, 0.25);
+}
+
+.tn-label {
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1;
+}
+
+.timeline-node.done .tn-label,
+.timeline-node.current .tn-label {
+  color: #eee;
+}
+
+.timeline-node.current .tn-label {
+  font-weight: 600;
+  color: #e0a96d;
+}
+
+.tn-time {
+  font-size: 22rpx;
+  color: #666;
+  margin-top: 6rpx;
+}
+
+/* ===== Order items ===== */
+.order-items {
+  background-color: #1a1a1a;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.order-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 24rpx;
+}
+
+.order-item:not(:last-child) {
+  border-bottom: 1rpx solid #252525;
+}
+
+.oi-main {
+  flex: 1;
+  overflow: hidden;
+  margin-right: 16rpx;
+}
+
+.oi-name {
+  font-size: 28rpx;
+  color: #eee;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.oi-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-top: 6rpx;
+}
+
+.oi-specs text {
+  font-size: 20rpx;
+  color: #888;
+  background-color: #252525;
+  padding: 2rpx 10rpx;
+  border-radius: 6rpx;
+}
+
+.oi-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.oi-qty {
+  font-size: 24rpx;
+  color: #888;
+  margin-bottom: 2rpx;
+}
+
+/* Order total */
+.order-total-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20rpx 24rpx;
+  background-color: #1a1a1a;
+  border-radius: 0 0 16rpx 16rpx;
+  border-top: 1rpx solid #252525;
+  margin-top: -1rpx;
+}
+
+.total-label {
+  font-size: 28rpx;
+  color: #ccc;
+  margin-right: 16rpx;
+}
+
+.total-price {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+/* ===== Cancel section ===== */
+.cancel-section {
+  padding: 24rpx 32rpx;
+}
+
+.btn-cancel {
+  width: 100%;
+  height: 88rpx;
+  background-color: transparent;
+  color: #e05252;
+  border: 2rpx solid #e05252;
+  border-radius: 44rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cancel:active {
+  background-color: rgba(224, 82, 82, 0.08);
+}
+
+.btn-cancel[disabled] {
+  color: #666;
+  border-color: #333;
+}
+
+/* ===== More section ===== */
+.more-section {
+  padding: 16rpx 32rpx;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,62 @@
+<!-- pages/checkout/checkout.wxml - Checkout Page -->
+<view class="page">
+  <scroll-view class="content" scroll-y="true">
+    <!-- Dine type selector -->
+    <view class="section">
+      <view class="section-title">用餐方式</view>
+      <view class="dine-type-row">
+        <view class="dine-option {{dineType === 'EAT_IN' ? 'selected' : ''}}"
+              data-type="EAT_IN" bindtap="onSelectDineType">
+          <view class="dine-icon">☕</view>
+          <view class="dine-label">堂食</view>
+          <view class="dine-table" wx:if="{{dineType === 'EAT_IN'}}">桌号: {{tableNumber}}</view>
+        </view>
+        <view class="dine-option {{dineType === 'TAKEOUT' ? 'selected' : ''}}"
+              data-type="TAKEOUT" bindtap="onSelectDineType">
+          <view class="dine-icon">🥡</view>
+          <view class="dine-label">打包</view>
+          <view class="dine-table" wx:if="{{dineType === 'TAKEOUT'}}">带走</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Order items -->
+    <view class="section">
+      <view class="section-title">订单详情</view>
+      <view class="order-items">
+        <view class="order-item" wx:for="{{cartItems}}" wx:key="cartKey">
+          <view class="oi-left">
+            <view class="oi-name">{{item.productName}}</view>
+            <view class="oi-spec" wx:if="{{item.specSummary}}">{{item.specSummary}}</view>
+          </view>
+          <view class="oi-right">
+            <view class="oi-qty">x{{item.quantity}}</view>
+            <view class="oi-price price">{{item.subtotal}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Summary -->
+    <view class="section">
+      <view class="summary-row">
+        <text class="summary-label">商品小计</text>
+        <text class="price">{{totalPrice}}</text>
+      </view>
+    </view>
+
+    <!-- Bottom spacer -->
+    <view style="height: 160rpx;"></view>
+  </scroll-view>
+
+  <!-- Submit bar -->
+  <view class="submit-bar">
+    <view class="submit-info">
+      <text class="submit-label">应付金额</text>
+      <text class="price submit-total">{{totalPrice}}</text>
+    </view>
+    <button class="btn-submit" bindtap="onSubmitOrder" loading="{{submitting}}" disabled="{{submitting}}">
+      {{submitting ? '提交中...' : '提交订单'}}
+    </button>
+  </view>
+</view>

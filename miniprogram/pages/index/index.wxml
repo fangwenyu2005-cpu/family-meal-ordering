@@ -1,0 +1,50 @@
+<!-- pages/index/index.wxml - Table Confirm Page -->
+<view class="page">
+  <!-- Shop branding -->
+  <view class="brand-area">
+    <view class="logo-wrap">
+      <image class="logo" src="/images/logo.png" mode="aspectFit" wx:if="{{false}}"></image>
+      <view class="logo-placeholder">☕</view>
+    </view>
+    <view class="shop-name">时光咖啡馆</view>
+    <view class="shop-tagline">精品咖啡 · 手工甜点</view>
+  </view>
+
+  <!-- Table number display -->
+  <view class="table-card card" wx:if="{{tableNumber}}">
+    <view class="table-label">桌号</view>
+    <view class="table-number">{{tableNumber}}</view>
+    <view class="table-hint">请确认您的桌号</view>
+  </view>
+
+  <!-- Manual table input (when no QR) -->
+  <view class="input-group" wx:else>
+    <view class="input-label">请输入您的桌号</view>
+    <input
+      class="table-input"
+      type="number"
+      placeholder="桌号"
+      placeholder-class="input-placeholder"
+      value="{{manualTable}}"
+      bindinput="onTableInput"
+      maxlength="4"
+    />
+  </view>
+
+  <!-- Start ordering button -->
+  <button class="btn-start" bindtap="onStartOrder" loading="{{loading}}" disabled="{{loading}}">
+    {{loading ? '验证中...' : '开始点餐'}}
+  </button>
+
+  <!-- Error message -->
+  <view class="error-msg" wx:if="{{errorMsg}}">
+    <text>{{errorMsg}}</text>
+  </view>
+
+  <!-- Loading overlay -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+  </view>
+</view>
